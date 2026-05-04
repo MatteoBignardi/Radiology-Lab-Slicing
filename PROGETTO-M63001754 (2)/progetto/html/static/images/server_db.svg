@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 61 81"
+  fill="none"
+  stroke="none"
+>
+  <use xlink:href="#A" x=".5" y=".5"/>
+
+  <symbol id="A" overflow="visible">
+    <path
+      d="M44.52 45.344c-5.989 0-12.181-1.16-15.48-3.707v31.359C29.04 76.884 36 80 44.52 80S60 76.884 60 72.996V41.66c-3.299 2.319-9.492 3.684-15.48 3.684h0zM60 37.363c0-3.115-6.96-5.64-15.48-5.64s-15.48 2.524-15.48 5.64 6.96 5.639 15.48 5.639S60 40.478 60 37.363h0zM25.153 60.534V41.455v-3.502-.591c0-5.253 6.192-8.186 13.537-9.141V3.889C38.69 1.751 36.95 0 34.826 0H3.864C1.74 0 0 1.751 0 3.889v75.93h29.424c-2.712-1.956-4.249-4.275-4.249-7.004v-.773H5.831v-3.888h19.345v-3.889H5.831v-3.889h19.345v.159zM5.808 11.87h27.096v3.889H5.808V11.87z"
+      fill="#0f73a0"
+      stroke="#FFFFFF"
+      stroke-width="2"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+      paint-order="stroke fill"
+      vector-effect="non-scaling-stroke"
+    />
+  </symbol>
+</svg>

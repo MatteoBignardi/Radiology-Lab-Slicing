@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 2s
+
+scrape_configs:
+  - job_name: 'ryu_monitor'
+    metrics_path: /metrics
+    static_configs:
+      # Se Prometheus gira in Docker e Ryu gira sull'host:
+      # - su Docker Desktop (Mac/Windows) funziona host.docker.internal
+      # - su Linux usiamo extra_hosts: host.docker.internal:host-gateway in docker-compose
+      - targets: ['host.docker.internal:8080']

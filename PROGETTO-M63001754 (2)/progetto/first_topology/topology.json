@@ -1,0 +1,228 @@
+{
+  "host_ip": {
+    "hBroker": "10.0.0.16",
+    "hCam1": "10.0.0.8",
+    "hCam2": "10.0.0.9",
+    "hImgDev1": "10.0.0.4",
+    "hImgDev2": "10.0.0.5",
+    "hPACS": "10.0.0.13",
+    "hPrDiag": "10.0.0.3",
+    "hPrImg": "10.0.0.6",
+    "hRIS": "10.0.0.15",
+    "hRISW1": "10.0.0.11",
+    "hRISW2": "10.0.0.12",
+    "hRadWS1": "10.0.0.1",
+    "hRadWS2": "10.0.0.2",
+    "lCS": "10.0.0.10",
+    "nvr": "10.0.0.7"
+  },
+  "host_links": [
+    [
+      "hRadWS1",
+      "s1",
+      1,
+      3
+    ],
+    [
+      "hRadWS2",
+      "s1",
+      1,
+      4
+    ],
+    [
+      "hPrDiag",
+      "s1",
+      1,
+      5
+    ],
+    [
+      "hImgDev1",
+      "s2",
+      1,
+      3
+    ],
+    [
+      "hImgDev2",
+      "s2",
+      1,
+      4
+    ],
+    [
+      "hPrImg",
+      "s2",
+      1,
+      5
+    ],
+    [
+      "nvr",
+      "s6",
+      1,
+      3
+    ],
+    [
+      "hCam1",
+      "s6",
+      1,
+      4
+    ],
+    [
+      "hCam2",
+      "s6",
+      1,
+      5
+    ],
+    [
+      "lCS",
+      "s8",
+      1,
+      3
+    ],
+    [
+      "hRISW1",
+      "s8",
+      1,
+      4
+    ],
+    [
+      "hRISW2",
+      "s8",
+      1,
+      5
+    ],
+    [
+      "hPACS",
+      "s5",
+      1,
+      3
+    ],
+    [
+      "hRIS",
+      "s5",
+      1,
+      5
+    ],
+    [
+      "hBroker",
+      "s5",
+      1,
+      6
+    ]
+  ],
+  "host_ui_alias": {
+    "hBroker": "broker_base",
+    "hCam1": "cam1",
+    "hCam2": "cam2",
+    "hImgDev1": "acq1",
+    "hImgDev2": "acq2",
+    "hPACS": "pacs",
+    "hPrDiag": "prnD",
+    "hPrImg": "prnI",
+    "hRIS": "ris",
+    "hRISW1": "risws1",
+    "hRISW2": "risws2",
+    "hRadWS1": "ws1",
+    "hRadWS2": "ws2",
+    "lCS": "adminpc",
+    "nvr": "secsrv"
+  },
+  "host_ui_label": {
+    "hBroker": "RIS/PACS Broker",
+    "hCam1": "Camera 1",
+    "hCam2": "Camera 2",
+    "hImgDev1": "Img Acquisition Device 1",
+    "hImgDev2": "Img Acquisition Device 2",
+    "hPACS": "PACS Server",
+    "hPrDiag": "Printer",
+    "hPrImg": "Printer",
+    "hRIS": "RIS Server",
+    "hRISW1": "RIS WS 1",
+    "hRISW2": "RIS WS 2",
+    "hRadWS1": "Radiology Img WS 1",
+    "hRadWS2": "Radiology Img WS 2",
+    "lCS": "Local Control Station",
+    "nvr": "Network Video Recorder"
+  },
+  "hosts": {
+    "hBroker": "00:00:00:00:00:10",
+    "hCam1": "00:00:00:00:00:08",
+    "hCam2": "00:00:00:00:00:09",
+    "hImgDev1": "00:00:00:00:00:04",
+    "hImgDev2": "00:00:00:00:00:05",
+    "hPACS": "00:00:00:00:00:0d",
+    "hPrDiag": "00:00:00:00:00:03",
+    "hPrImg": "00:00:00:00:00:06",
+    "hRIS": "00:00:00:00:00:0f",
+    "hRISW1": "00:00:00:00:00:0b",
+    "hRISW2": "00:00:00:00:00:0c",
+    "hRadWS1": "00:00:00:00:00:01",
+    "hRadWS2": "00:00:00:00:00:02",
+    "lCS": "00:00:00:00:00:0a",
+    "nvr": "00:00:00:00:00:07"
+  },
+  "links": [
+    [
+      "s1",
+      "s2",
+      1,
+      1,
+      1000
+    ],
+    [
+      "s2",
+      "s3",
+      2,
+      1,
+      1000
+    ],
+    [
+      "s3",
+      "s4",
+      2,
+      1,
+      1000
+    ],
+    [
+      "s4",
+      "s5",
+      2,
+      1,
+      1000
+    ],
+    [
+      "s5",
+      "s8",
+      2,
+      1,
+      1000
+    ],
+    [
+      "s1",
+      "s6",
+      2,
+      1,
+      100
+    ],
+    [
+      "s6",
+      "s3",
+      2,
+      3,
+      100
+    ],
+    [
+      "s3",
+      "s7",
+      4,
+      1,
+      100
+    ],
+    [
+      "s7",
+      "s8",
+      2,
+      2,
+      100
+    ]
+  ],
+  "n_switches": 8
+}

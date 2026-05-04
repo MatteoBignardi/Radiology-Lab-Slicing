@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Radiology Lab - SDN Slicing</title>
+  <link rel="icon" type="image/png" href="/ui/static/images/icon.png">
+  <link rel="stylesheet" href="/ui/static/styles/topology.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="/ui/static/images/icon.png" class="logo" alt="logo">
+        <div>
+          <div class="title">Radiology Lab</div>
+          <div class="subtitle">SDN Slicing Controller UI</div>
+        </div>
+      </div>
+
+      
+      <div class="card">
+        <div class="card-title">Monitoring</div>
+        <a class="btn" href="/ui/monitor" style="display:block;text-align:center;">Open monitoring dashboard</a>
+      </div>
+<div class="card">
+        <div class="card-title">Operational status</div>
+        <div class="kv"><span>Mode</span><span id="modeLabel">—</span></div>
+        <div class="kv"><span>Slicing</span><span id="slicingLabel">—</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Day/Night mode</div>
+        <div class="btnrow">
+          <button id="btnDay" class="btn">Day</button>
+          <button id="btnNight" class="btn">Night</button>
+        </div>
+        <div class="hint">Warning: active rules will be removed from the switches and new rules will be installed based on the selected scenario.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Operating mode</div>
+        <div class="btnrow">
+          <button id="btnTopo" class="btn">Topology</button>
+          <button id="btnService" class="btn">Service</button>
+        </div>
+        <div class="hint">Warning: active rules will be removed from the switches and new rules will be installed based on the selected scenario.</div>
+      </div>
+
+      <div class="card" id="cardTopology">
+        <div class="card-title">Topology slices</div>
+        <div class="togrow">
+          <button id="slice1" class="btn btn-slice blue">Radiology</button>
+          <button id="slice2" class="btn btn-slice red">Security</button>
+          <button id="slice3" class="btn btn-slice green">Admin Core</button>
+        </div>
+        <div class="hint">The interface highlights the links associated with the active slices.</div>
+      </div>
+
+      <div class="card" id="cardService">
+        <div class="card-title">Service slices</div>
+        <div class="togrow">
+          <button id="videoToggle" class="btn btn-slice red">Video slice</button>
+        </div>
+      </div><div class="card">
+        <div class="card-title">Legend</div>
+        <div class="legend">
+          <div><span class="swatch blue"></span>Radiology slice / Non‑video</div>
+          <div><span class="swatch red"></span>Security slice / Video</div>
+          <div><span class="swatch green"></span>Admin Core slice</div>
+          <div><span class="swatch gray"></span>Base slice</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="canvas-wrap">
+        <svg id="topoSvg" viewBox="0 0 1024 600" preserveAspectRatio="xMidYMid meet" aria-label="topology">
+
+          <g id="links" stroke-linecap="round">
+
+            <line id="l_s1_s2" class="link base" x1="140" y1="260" x2="420" y2="140"/>
+            <line id="l_s2_s3" class="link base" x1="420" y1="140" x2="520" y2="260"/>
+            <line id="l_s3_s4" class="link base" x1="520" y1="260" x2="660" y2="180"/>
+            <line id="l_s4_s5" class="link base" x1="660" y1="180" x2="820" y2="180"/>
+            <line id="l_s5_s8" class="link base" x1="820" y1="180" x2="820" y2="420"/>
+
+            <line id="l_s5_broker_base" class="link base" x1="820" y1="180" x2="930" y2="250"/>
+            <line id="l_s5_broker_ov" class="link overlay hidden" x1="820" y1="180" x2="930" y2="250"/>
+
+
+
+            <line id="l_s1_s6" class="link base" x1="140" y1="260" x2="360" y2="420"/>
+            <line id="l_s6_s3" class="link base" x1="360" y1="420" x2="520" y2="260"/>
+            <line id="l_s3_s7" class="link base" x1="520" y1="260" x2="660" y2="420"/>
+            <line id="l_s7_s8" class="link base" x1="660" y1="420" x2="820" y2="420"/>
+
+
+            <!-- s1 (Diagnostic) to WS/Printer -->
+            <line id="l_s1_ws1" class="link base thin" x1="140" y1="260" x2="42" y2="197"/>
+            <line id="l_s1_ws2" class="link base thin" x1="140" y1="260" x2="42" y2="257"/>
+            <line id="l_s1_prnD" class="link base thin" x1="140" y1="260" x2="42" y2="317"/>
+
+            <!-- s2 (Imaging) to Acquisition/Printer -->
+            <line id="l_s2_acq1" class="link base thin" x1="420" y1="140" x2="322" y2="52"/>
+            <line id="l_s2_prnI" class="link base thin" x1="420" y1="140" x2="437" y2="32"/>
+            <line id="l_s2_acq2" class="link base thin" x1="420" y1="140" x2="542" y2="52"/>
+
+            <!-- s5 (Server) to PACS/RIS/Broker -->
+            <line id="l_s5_pacs" class="link base thin" x1="820" y1="180" x2="882" y2="62"/>
+            <line id="l_s5_ris" class="link base thin" x1="820" y1="180" x2="1002" y2="62"/>
+
+            <!-- s6 (Security) to SecSrv/Cams -->
+            <line id="l_s6_secsrv" class="link base thin" x1="360" y1="420" x2="272" y2="522"/>
+            <line id="l_s6_secsrv_ov" class="link overlay thin hidden" x1="360" y1="420" x2="272" y2="522"/>
+            <line id="l_s6_cam1" class="link base thin" x1="360" y1="420" x2="382" y2="522"/>
+            <line id="l_s6_cam1_ov" class="link overlay thin hidden" x1="360" y1="420" x2="382" y2="522"/>
+            <line id="l_s6_cam2" class="link base thin" x1="360" y1="420" x2="322" y2="567"/>
+            <line id="l_s6_cam2_ov" class="link overlay thin hidden" x1="360" y1="420" x2="322" y2="567"/>
+
+            <!-- s8 (Admin) to AdminPC/RIS workstations -->
+            <line id="l_s8_adminpc" class="link base thin" x1="820" y1="420" x2="882" y2="522"/>
+            <line id="l_s8_adminpc_ov" class="link overlay thin hidden" x1="820" y1="420" x2="882" y2="522"/>
+            <line id="l_s8_risws1" class="link base thin" x1="820" y1="420" x2="942" y2="522"/>
+            <line id="l_s8_risws2" class="link base thin" x1="820" y1="420" x2="1002" y2="522"/>
+</g>
+
+          <!-- port labels (added at runtime by topology.js) -->
+          
+
+          <!-- nodes -->
+          <g id="nodes">
+            <!-- ================= SWITCHES (icona switch) ================= -->
+            <g class="node" transform="translate(100 220)">
+              <image href="/ui/static/images/switch.svg" width="80" height="80"/>
+              <text x="40" y="95" text-anchor="middle">Diagnostic</text>
+              <text x="40" y="112" text-anchor="middle" class="sub">s1</text>
+            </g>
+
+            <g class="node" transform="translate(380 100)">
+              <image href="/ui/static/images/switch.svg" width="80" height="80"/>
+              <text x="40" y="95" text-anchor="middle">Imaging</text>
+              <text x="40" y="112" text-anchor="middle" class="sub">s2</text>
+            </g>
+
+            <g class="node" transform="translate(480 220)">
+              <image href="/ui/static/images/switch.svg" width="80" height="80"/>
+              <text x="40" y="95" text-anchor="middle">Interconn.</text>
+              <text x="40" y="112" text-anchor="middle" class="sub">s3</text>
+            </g>
+
+            <g class="node" transform="translate(620 140)">
+              <image href="/ui/static/images/switch.svg" width="80" height="80"/>
+              <text x="40" y="95" text-anchor="middle">Interconn.</text>
+              <text x="40" y="112" text-anchor="middle" class="sub">s4</text>
+            </g>
+
+            <g class="node" transform="translate(780 140)">
+              <image href="/ui/static/images/switch.svg" width="80" height="80"/>
+              <text x="40" y="95" text-anchor="middle">Server</text>
+              <text x="40" y="112" text-anchor="middle" class="sub">s5</text>
+            </g>
+
+            <g class="node" transform="translate(320 380)">
+              <image href="/ui/static/images/switch.svg" width="80" height="80"/>
+              <text x="40" y="95" text-anchor="middle">Security</text>
+              <text x="40" y="112" text-anchor="middle" class="sub">s6</text>
+            </g>
+
+            <g class="node" transform="translate(620 380)">
+              <image href="/ui/static/images/switch.svg" width="80" height="80"/>
+              <text x="40" y="95" text-anchor="middle">Interconn.</text>
+              <text x="40" y="112" text-anchor="middle" class="sub">s7</text>
+            </g>
+
+            <g class="node" transform="translate(780 380)">
+              <image href="/ui/static/images/switch.svg" width="80" height="80"/>
+              <text x="40" y="95" text-anchor="middle">Admin</text>
+              <text x="40" y="112" text-anchor="middle" class="sub">s8</text>
+            </g>
+
+            <!-- Diagnostic zone hosts -->
+            <g class="host" id="hRadWS1" transform="translate(20 175)">
+              <image id="h_ws1_icon" href="/ui/static/images/user_pc.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">WS</text>
+            </g>
+            <g class="host" id="hRadWS2" transform="translate(20 235)">
+              <image id="h_ws2_icon" href="/ui/static/images/user_pc.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">WS</text>
+            </g>
+            <g class="host" id="hPrDiag" transform="translate(20 295)">
+              <image id="h_prn_diag_icon" href="/ui/static/images/printer.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">Prn</text>
+            </g>
+
+            <!-- Imaging zone hosts -->
+            <g class="host" id="hPrImg" transform="translate(415 10)">
+              <image id="h_prn_img_icon" href="/ui/static/images/printer.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">Prn</text>
+            </g>
+            <g class="host" id="hImgDev1" transform="translate(300 30)">
+              <image id="h_acq1_icon" href="/ui/static/images/ct_scan.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">Acq</text>
+            </g>
+            <g class="host" id="hImgDev2" transform="translate(520 30)">
+              <image id="h_acq2_icon" href="/ui/static/images/ct_scan.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">Acq</text>
+            </g>
+
+            <!-- Server zone hosts -->
+            <g class="host" id="hPACS" transform="translate(860 40)">
+              <image id="h_pacs_icon" href="/ui/static/images/server_db.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">PACS</text>
+            </g>
+            <g class="host" id="hRIS" transform="translate(980 40)">
+              <image id="h_ris_icon" href="/ui/static/images/server_db.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">RIS</text>
+            </g>
+            <g class="host" id="hBroker" transform="translate(940 230)">
+              <image id="h_broker_icon" href="/ui/static/images/pc.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">Broker</text>
+            </g>
+
+            <!-- Security zone hosts -->
+            <g class="host" id="nvr" transform="translate(250 500)">
+              <image id="nvr_icon" href="/ui/static/images/set_top_box.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">SecSrv</text>
+            </g>
+            <g class="host" id="hCam1" transform="translate(360 500)">
+              <image id="h_cam1_icon" href="/ui/static/images/camera.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">Cam</text>
+            </g>
+            <g class="host" id="hCam2" transform="translate(300 545)">
+              <image id="h_cam2_icon" href="/ui/static/images/camera.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">Cam</text>
+            </g>
+
+            <!-- Admin zone hosts -->
+            <g class="host" id="lCS" transform="translate(860 500)">
+              <image id="lCS_icon" href="/ui/static/images/host.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">Admin</text>
+            </g>
+            <g class="host" id="hRISW1" transform="translate(920 500)">
+              <image id="h_risws1_icon" href="/ui/static/images/user_pc.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">RIS WS</text>
+            </g>
+            <g class="host" id="hRISW2" transform="translate(980 500)">
+              <image id="h_risws2_icon" href="/ui/static/images/user_pc.svg" width="44" height="44"/>
+              <text x="22" y="60" text-anchor="middle">RIS WS</text>
+            </g>
+</g>
+          <g id="portLabels"></g>
+        </svg>
+      </div>
+  
+
+</main>
+  </div>
+
+
+  <script src="/ui/static/scripts/topology.js"></script>
+  <script src="/ui/static/scripts/trafficAnimation.js"></script>
+  <script src="/ui/static/scripts/trafficSim.js"></script>
+  <div id="hostTooltip" class="host-tooltip" aria-hidden="true"></div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+#!/bin/sh
+sudo docker-compose -f docker-compose.monitor.yml down
+sudo fuser -k 8080/tcp
+sudo mn -c

@@ -1,0 +1,226 @@
+{
+  "uid": "sdn-qos",
+  "title": "SDN Metrics (Ryu/Prometheus)",
+  "tags": [
+    "sdn",
+    "ryu",
+    "prometheus",
+    "raw"
+  ],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 2,
+  "refresh": "5s",
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "templating": {
+    "list": [
+      {
+        "type": "query",
+        "name": "switch",
+        "label": "Switch (datapath_id)",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PROM"
+        },
+        "refresh": 2,
+        "query": "label_values(ryu_flow_count, datapath_id)",
+        "includeAll": false,
+        "multi": false,
+        "sort": 1,
+        "current": {
+          "text": "All",
+          "value": ""
+        },
+        "hide": 0
+      },
+      {
+        "name": "mode",
+        "type": "custom",
+        "label": "Slicing mode",
+        "hide": 0,
+        "query": "topology,service",
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "options": [
+          {
+            "text": "All",
+            "value": "$__all",
+            "selected": true
+          },
+          {
+            "text": "topology",
+            "value": "topology",
+            "selected": false
+          },
+          {
+            "text": "service",
+            "value": "service",
+            "selected": false
+          }
+        ],
+        "includeAll": true,
+        "allValue": ".*",
+        "multi": false,
+        "refresh": 1,
+        "sort": 1,
+        "skipUrlSync": false
+      }
+    ]
+  },
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Flow count by switch/table",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PROM"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ryu_flow_count{datapath_id=~\"$switch\"}",
+          "legendFormat": "dp={{datapath_id}} table={{table_id}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PROM"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Packet count per flow (raw, cumulative)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PROM"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ryu_packet_count{datapath_id=~\"$switch\",mode=~\"$mode\"}",
+          "legendFormat": "t={{table_id}} in={{in_port}} src={{eth_src}} dst={{eth_dst}} et={{eth_type}} ip={{ip_proto}} udp={{udp_dst}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PROM"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Byte count per flow",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PROM"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ryu_byte_count{datapath_id=~\"$switch\",mode=~\"$mode\"}",
+          "legendFormat": "t={{table_id}} in={{in_port}} src={{eth_src}} dst={{eth_dst}} et={{eth_type}} ip={{ip_proto}} udp={{udp_dst}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PROM"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Flow duration",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PROM"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 28
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "ryu_duration_sec{datapath_id=~\"$switch\",mode=~\"$mode\"}",
+          "legendFormat": "t={{table_id}} in={{in_port}} src={{eth_src}} dst={{eth_dst}} et={{eth_type}} ip={{ip_proto}} udp={{udp_dst}}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PROM"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    }
+  ]
+}

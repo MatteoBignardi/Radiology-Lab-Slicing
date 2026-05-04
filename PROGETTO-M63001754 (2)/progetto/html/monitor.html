@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Monitoring Dashboard</title>
+  <link rel="icon" type="image/png" href="/ui/static/images/icon.png">
+  <link rel="stylesheet" href="/ui/static/styles/topology.css">
+  <style>
+    .frameWrap { height: calc(100vh - 72px); }
+    iframe { width: 100%; height: 100%; border: 0; }
+    .topbar { display:flex; align-items:center; gap:12px; padding:16px 18px; border-bottom:1px solid rgba(0,0,0,.08); }
+    .topbar a { text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a href="/ui">← Back to UI</a>
+    <div style="font-weight:600;">Grafana</div>
+  </div>
+
+  <div class="frameWrap">
+    <iframe
+      src="http://localhost:3000/d/sdn-qos/sdn-qos-monitoring-ryu-mininet?orgId=1&kiosk"
+      allowfullscreen>
+    </iframe>
+  </div>
+</body>
+</html>
