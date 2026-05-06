@@ -1131,7 +1131,7 @@ cd radiology-lab-slicing
 Questa sezione fornisce tutti i comandi necessari per avviare e testare
 l’applicazione.
 
-1. Avviare il controller:
+2. Avviare il controller:
 ```bash
 sudo -E ~/envname/bin/ryu-manager \
 first_topology/controller.py \
@@ -1140,7 +1140,7 @@ first_topology/monitoring/monitor_prometheus.py \
 
 ryu-manager è l’eseguibile utilizzato per avviare le applicazioni Ryu. Esso carica le applicazioni Ryu e le esegue.
 
-1. Avviare Prometheus e Grafana
+3. Avviare Prometheus e Grafana
 
 ```bash
 docker-compose -f docker-compose.monitor.yml up -d
@@ -1148,12 +1148,12 @@ docker-compose -f docker-compose.monitor.yml up -d
 
 L'opzione -f del comando docker-compose specifica il nome e il percorso del Compose file.
 
-1. Avviare la topologia Mininet:
+4. Avviare la topologia Mininet:
 ```bash
 sudo python3 first_topology/topology.py
 ```
 
-1. Accedere alla GUI: aprire il browser e accedere al sito:
+5. Accedere alla GUI: aprire il browser e accedere al sito:
 ```
 http://localhost:8080/ui/index.html
 ```
