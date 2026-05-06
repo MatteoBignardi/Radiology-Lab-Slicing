@@ -1136,15 +1136,19 @@ l’applicazione.
 sudo -E ~/envname/bin/ryu-manager \
 first_topology/controller.py \
 first_topology/monitoring/monitor_prometheus.py \
---observe-links
 ```
+
+ryu-manager è l’eseguibile utilizzato per avviare le applicazioni Ryu. Esso carica le applicazioni Ryu e le esegue.
+
 1. Avviare Prometheus e Grafana
 
 ```bash
 docker-compose -f docker-compose.monitor.yml up -d
 ```
 
-3. Avviare la topologia Mininet:
+L'opzione -f del comando docker-compose specifica il nome e il percorso del Compose file.
+
+1. Avviare la topologia Mininet:
 ```bash
 sudo python3 first_topology/topology.py
 ```
