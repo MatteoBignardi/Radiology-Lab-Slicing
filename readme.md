@@ -1133,7 +1133,7 @@ l’applicazione.
 
 2. Avviare il controller:
 ```bash
-sudo -E ~/envname/bin/ryu-manager \
+~/envname/bin/ryu-manager \
 first_topology/controller.py \
 first_topology/monitoring/monitor_prometheus.py \
 ```
