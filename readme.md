@@ -2440,7 +2440,7 @@ Dal punto di vista del protocollo, il servizio DICOM Verification è implementat
 
 L’applicazione `echoscu` della collezione di librerie **DCMTK** implementa uno SCU per la Verification SOP Class.
 
-Analizzando la cattura si osserva chiaramente la sequenza completa dei messaggi previsti dal protocollo DICOM e che la comunicazione avviene utilizzando il protocollo di trasporto **TCP**, come previsto dallo standard DICOM.
+Analizzando la cattura si osserva chiaramente la sequenza completa dei messaggi previsti dal protocollo DICOM e che la comunicazione avviene utilizzando il protocollo di trasporto **TCP**, come previsto dallo [standard DICOM](https://dicom.nema.org/medical/dicom/current/output/chtml/part08/chapter_6.html).
 
 ![Screenshot Wireshark con filtro DICOM](./images/dicom1pcap.png)  
 *Screenshot Wireshark con filtro DICOM* 
