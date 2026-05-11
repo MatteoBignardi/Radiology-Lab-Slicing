@@ -2563,6 +2563,8 @@ Per la costruzione e la restituzione delle risposte HTTP nella REST API viene ut
 
 ### Metodi 
 
+La classe ControllerServer definisce gli URL per ricevere le richieste HTTP e il metodo corrispondente.
+
 #### 1. GUI Index
 Restituisce la pagina principale della GUI (`index.html`).
 
