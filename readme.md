@@ -1122,7 +1122,7 @@ I metodi principali della classe sono:
 1. Spostarsi nella directory del progetto:
    
 ```bash
-cd radiology-lab-slicing
+cd radiology-lab-slicing/progetto
 ```
 ---
 
@@ -1133,9 +1133,7 @@ l’applicazione.
 
 2. Avviare il controller:
 ```bash
-~/envname/bin/ryu-manager \
-first_topology/controller.py \
-first_topology/monitoring/monitor_prometheus.py \
+sudo ryu-manager progetto/first_topology/controller.py progetto/first_topology/monitoring/monitor_prometheus.py --verbose
 ```
 
 ryu-manager è l’eseguibile utilizzato per avviare le applicazioni Ryu. Esso carica le applicazioni Ryu e le esegue.
